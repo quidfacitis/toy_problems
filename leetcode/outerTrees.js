@@ -3,11 +3,70 @@
 
 var outerTrees = function(trees) {
 
-  // find highest and lowest x and y coordinates ('edges' of fence)
+  // EDGE CASE -- what if there are four coordinates or fewer
+    // --> return those coordinates
 
-  // the highest and lowest x values are definitely on the perimeter
-  // the highest and lowest y values are definitely on the perimeter
+  // find highest and lowest x and y coordinates (definite 'edges' of fence)
+  const perimeter = [];
+
+  const getHighLowCoords = (arr, coord) => {
+    const cIndex = coord === 'x' ? 0 : 1;
+    let lowestValue = trees[0];
+    let highestValue = trees[0];
+
+    for (let i = 1; i < trees.length; i++) {
+      if (trees[i][cIndex] < lowestValue[cIndex]) {
+        lowestValue = trees[i];
+      } else if (trees[i][cIndex] > highestValue[cIndex]) {
+        highestValue = trees[i];
+      }
+    }
+    perimeter.push(lowestValue);
+    perimeter.push(highestValue);
+  }
+
+  getHighLowCoords(trees, 'x');
+  getHighLowCoords(trees, 'y')
+
+  return perimeter;
+  // plot the coordinates between these points
+
+  const plotCoords = (pArr, d) => {
+    let startC = pArr[0];
+    let endC = pArr[0];
+
+    if (d === 'u-r') {
+      // get lowest 'x' and highest 'y'
+    }
+
+    if (d === 'd-r') {
+      // get highest 'y' and highest 'x'
+    }
+
+    if (d === 'd-l') {
+      // get highest 'x' and lowest 'y'
+    }
+
+    if (d === 'u-l') {
+      // get lowest 'y' and lowest 'x'
+    }
+  };
+
+
+  // for each of the coordinate lines, check if any remaining coordinates fall 'outside' the line
+    // if so, get the most extreme outlier and get coordinate lines between it and the two points it falls between
+      // perform the same 'outlier' check on those points (recursive function)
+
 };
+
+console.log(outerTrees([[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]])); // [[1,1], [4, 2], [2, 0], [2,4]]
+// console.log(outerTrees([[1,2],[2,2],[4,2]]));
+console.log(outerTrees([[0,2],[1,1],[2,2],[2,4],[4,2],[3,3]])); // [[0,2], [4,2], [1,1], [2,4]]
+
+// FIRST SUBMISSION RESULTS:
+// input: [[0,2],[1,1],[2,2],[2,4],[4,2],[3,3]]
+// expected output: [[3,3],[4,2],[0,2],[1,1],[2,4]]
+// my output: [[0,2],[1,1],[2,2],[2,4],[4,2],[3,3]]
 
 
 
@@ -58,11 +117,3 @@ var outerTrees = function(trees) {
 
 //     return fenceCoordinates;
 // };
-
-// console.log(outerTrees([[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]));
-// console.log(outerTrees([[1,2],[2,2],[4,2]]));
-
-// FIRST SUBMISSION RESULTS:
-// input: [[0,2],[1,1],[2,2],[2,4],[4,2],[3,3]]
-// expected output: [[3,3],[4,2],[0,2],[1,1],[2,4]]
-// my output: [[0,2],[1,1],[2,2],[2,4],[4,2],[3,3]]
